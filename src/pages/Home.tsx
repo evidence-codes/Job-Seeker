@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 
 const Home: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000); // Change the timeout value as needed
+    const textToType = "Site is loading...";
+    const typingInterval = setInterval(() => {
+      if (index < textToType.length) {
+        setText((prev) => prev + textToType.charAt(index));
+        setIndex((prev) => prev + 1);
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 100);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearInterval(typingInterval);
+    };
+  }, [index]);
 
   return (
     <div className="flex justify-center items-center h-screen">
-      {loading ? (
-        <h1 className="text-4xl font-bold text-center">Site is Loading!!</h1>
-      ) : null}
+      <h1 className="text-3xl font-bold">{text}</h1>
     </div>
   );
 };
