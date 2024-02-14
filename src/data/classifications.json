@@ -1,0 +1,12 @@
+[
+  {
+    "id": "accounting",
+    "name": "Accounting",
+    "subClassifications": ["Sub1", "Sub2", "Sub3"]
+  },
+  {
+    "id": "administration",
+    "name": "Administration & Office Support",
+    "subClassifications": ["Sub4", "Sub5", "Sub6"]
+  }
+]

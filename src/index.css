@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-custom-gradient {
+    background-image: linear-gradient(
+      139deg,
+      #fb8817,
+      #ff4b01,
+      #c12127,
+      #e02aff
+    );
+  }
+  .main-gradient {
+    background-image: linear-gradient(
+      45deg,
+      rgb(254, 81, 150),
+      rgb(247, 112, 98)
+    );
+  }
+  .input-width {
+    width: 40rem;
+  }
+  .grad-pic {
+    background-image: url(https://images.unsplash.com/photo-1624139283078-74a0492f2ee3?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  }
+}
