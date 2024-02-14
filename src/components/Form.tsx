@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 interface TabButtonsProps {
   activeTab: "login" | "signup";
@@ -46,6 +47,11 @@ function LoginForm() {
 }
 
 function SignupForm() {
+  const navigate = useNavigate();
+
+  const handleSignup = () => {
+    navigate("/auth/onboarding");
+  };
   return (
     <>
       <div>
@@ -74,7 +80,7 @@ function SignupForm() {
             <Button
               style="w-32 text-white bg-black hover:opacity-90 p-4 font-semibold rounded-lg outline-none"
               type="button"
-              onClick={() => console.log()}
+              onClick={handleSignup}
               text="Sign up"
             />
           </div>

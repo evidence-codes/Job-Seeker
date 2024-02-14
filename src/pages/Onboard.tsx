@@ -1,11 +1,9 @@
-import { Onboarding } from "../components/Form";
+import Onboarding from "../components/Onboarding";
 
 export default function Onboard() {
   return (
-    <>
-      <div>
-        <Onboarding />
-      </div>
-    </>
+    <div className="flex justify-center items-center">
+      <Onboarding />
+    </div>
   );
 }
