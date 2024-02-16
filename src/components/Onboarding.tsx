@@ -306,6 +306,100 @@ export default function Onboarding() {
   );
 }
 
+export function EmployerAuth() {
+  return (
+    <>
+      <div>
+        <form className="w-full py-8">
+          <div className="px-8 py-8">
+            <h1 className="text-5xl font-semibold">Your Employer Account</h1>
+            <div className="py-8 px-4">
+              <h3 className="text-2xl">Your details</h3>
+              <div>
+                <div className="py-4">
+                  <p className="text-gray-700 font-semibold text-base">Email</p>
+                  <input
+                    className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
+                    placeholder=""
+                    type="email"
+                    name=""
+                    id=""
+                  />
+                </div>
+                <div className="py-2">
+                  <p className="text-gray-700 font-semibold text-base">
+                    Full name
+                  </p>
+                  <input
+                    className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
+                    placeholder=""
+                    type="text"
+                    name=""
+                    id=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="py-8 px-4">
+              <h3 className="text-2xl">Business Details</h3>
+              <div>
+                <div className="py-4">
+                  <p className="text-gray-700 font-semibold text-base">
+                    Business name
+                  </p>
+                  <input
+                    className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
+                    placeholder=""
+                    type="text"
+                    name=""
+                    id=""
+                  />
+                </div>
+                <div className="py-2">
+                  <p className="text-gray-700 font-semibold text-base">
+                    Phone number
+                  </p>
+                  <input
+                    className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
+                    placeholder=""
+                    type="text"
+                    name=""
+                    id=""
+                  />
+                </div>
+                <div className="py-2">
+                  <p className="text-gray-700 font-semibold text-base">
+                    Country
+                  </p>
+                  <div className="flex space-x-4 text-gray-700">
+                    <select
+                      className="border px-4 border-gray-500 outline-none py-3 w-2/3 rounded-lg bg-white"
+                      name="month"
+                      id=""
+                    >
+                      <option className="py-4" value="month">
+                        Month
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="px-8 py-4">
+              <Button
+                style="w-full text-white bg-black hover:opacity-90 p-4 font-semibold rounded-lg outline-none"
+                type="button"
+                onClick={() => console.log()}
+                text="Save and Continue"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+}
+
 function generateYear() {
   const currentYear = new Date().getFullYear();
   const result = [];
