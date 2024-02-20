@@ -1,51 +1,51 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const JobSearch = () => {
-  const [jobs, setJobs] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  // const [jobs, setJobs] = useState([]);
+  // const [filteredJobs, setFilteredJobs] = useState([]);
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = "URL_TO_YOUR_JOB_API";
-        const response = await fetch(url);
-        const jobsData = await response.json();
-        setJobs(jobsData);
-        setFilteredJobs(jobsData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const url = "URL_TO_YOUR_JOB_API";
+  //       const response = await fetch(url);
+  //       const jobsData = await response.json();
+  //       setJobs(jobsData);
+  //       setFilteredJobs(jobsData);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) {
-      params.append("q", searchQuery);
-    }
-    navigate({ search: params.toString() });
-  }, [searchQuery, navigate]);
+  // useEffect(() => {
+  //   const params = new URLSearchParams();
+  //   if (searchQuery) {
+  //     params.append("q", searchQuery);
+  //   }
+  //   navigate({ search: params.toString() });
+  // }, [searchQuery, navigate]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    const filteredJobs = jobs.filter(
-      (job) =>
-        job.title.toLowerCase().includes(query) ||
-        job.company.toLowerCase().includes(query) ||
-        job.techStack.toLowerCase().includes(query)
-    );
-    setFilteredJobs(filteredJobs);
-  };
+  // const handleSearch = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const query = e.target.value.toLowerCase();
+  //   setSearchQuery(query);
+  //   const filteredJobs = jobs.filter(
+  //     (job) =>
+  //       job.title.toLowerCase().includes(query) ||
+  //       job.company.toLowerCase().includes(query) ||
+  //       job.techStack.toLowerCase().includes(query)
+  //   );
+  //   setFilteredJobs(filteredJobs);
+  // };
 
   return (
     <>
-      <div>
+      {/* <div>
         <div className="flex justify-center p-12">
           <input
             type="text"
@@ -64,7 +64,7 @@ const JobSearch = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
