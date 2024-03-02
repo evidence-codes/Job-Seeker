@@ -8,7 +8,6 @@ interface ButtonProps {
   text?: string;
   children?: React.ReactNode;
 }
-
 const Button: React.FC<ButtonProps> = ({
   style,
   type,
