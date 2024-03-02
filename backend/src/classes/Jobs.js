@@ -40,6 +40,14 @@ class Jobs {
             throw new Error("Failed to fetch jobs")
         }
     }
+    async getJob(data) {
+        try {
+            const job = await Job.findById(data);
+            return job;
+        } catch (err) {
+            throw new Error("Failed to fetch job")
+        }
+    }
 }
 
 module.exports = Jobs;
