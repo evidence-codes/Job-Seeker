@@ -1,8 +1,67 @@
+import { useState } from "react";
 import Button from "./Button";
 
 import TextEditor from "./TextEditor";
 
 export default function Jobs() {
+  const [formData, setFormData] = useState({
+    jobTitle: "",
+    location: "",
+    workType: "",
+    payType: "",
+    currency: "",
+    payFrom: "",
+    payTo: "",
+    jobDescription: "",
+    jobSummary: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleClick = () => {
+    fetch("https://your-api-endpoint.com/jobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to post job ad");
+        }
+        console.log("Job ad posted successfully");
+        // Reset form data after successful submission
+        setFormData({
+          jobTitle: "",
+          location: "",
+          workType: "",
+          payType: "",
+          currency: "",
+          payFrom: "",
+          payTo: "",
+          jobDescription: "",
+          jobSummary: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error posting job ad:", error);
+      });
+  };
   return (
     <>
       <div>
@@ -22,6 +81,7 @@ export default function Jobs() {
                   type="text"
                   name=""
                   id=""
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="py-4">
@@ -111,6 +171,7 @@ export default function Jobs() {
                       className="border px-4 border-gray-500 outline-none py-3 w-full rounded-lg bg-white"
                       name="month"
                       id=""
+                      onChange={handleSelectChange}
                     >
                       <option className="py-4" value="month">
                         Month
@@ -186,7 +247,7 @@ export default function Jobs() {
             <Button
               style="w-full text-white bg-black hover:opacity-90 p-4 font-semibold rounded-lg outline-none"
               type="button"
-              onClick={() => console.log()}
+              onClick={handleClick}
               text="Post my Job Ad"
             />
           </div>
