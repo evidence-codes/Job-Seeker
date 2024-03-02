@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Onboard, { EmployerOnboard } from "./pages/Onboard";
 import Job from "./pages/Job";
+import JobDetails from "./components/JobDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             element={<EmployerOnboard />}
           />
           <Route path="/job/manage/create" element={<Job />} />
+          <Route path="/jobs/:id" element={<JobDetails />} />
         </Routes>
       </Router>
     </>
