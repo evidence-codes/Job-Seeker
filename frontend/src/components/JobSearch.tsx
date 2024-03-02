@@ -1,51 +1,65 @@
-// import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+interface Job {
+  id: number;
+  jobTitle: string;
+  jobSummary: string;
+  location: string;
+  workType: string;
+  // Add more properties if needed
+}
 
 const JobSearch = () => {
-  // const [jobs, setJobs] = useState([]);
-  // const [filteredJobs, setFilteredJobs] = useState([]);
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const navigate = useNavigate();
+  const [jobs, setJobs] = useState<Job[]>([]); // Specify the type as Job[]
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const url = "URL_TO_YOUR_JOB_API";
-  //       const response = await fetch(url);
-  //       const jobsData = await response.json();
-  //       setJobs(jobsData);
-  //       setFilteredJobs(jobsData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = "http://localhost:5000/api/jobs/get";
+        const response = await fetch(url);
+        const jobsData = await response.json();
+        console.log(jobsData);
+        setJobs(jobsData.jobs);
+        setFilteredJobs(jobsData.jobs);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
-  // useEffect(() => {
-  //   const params = new URLSearchParams();
-  //   if (searchQuery) {
-  //     params.append("q", searchQuery);
-  //   }
-  //   navigate({ search: params.toString() });
-  // }, [searchQuery, navigate]);
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) {
+      params.append("q", searchQuery);
+    }
+    navigate({ search: params.toString() });
+  }, [searchQuery, navigate]);
 
-  // const handleSearch = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const query = e.target.value.toLowerCase();
-  //   setSearchQuery(query);
-  //   const filteredJobs = jobs.filter(
-  //     (job) =>
-  //       job.title.toLowerCase().includes(query) ||
-  //       job.company.toLowerCase().includes(query) ||
-  //       job.techStack.toLowerCase().includes(query)
-  //   );
-  //   setFilteredJobs(filteredJobs);
-  // };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Changed to HTMLInputElement
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filteredJobs = jobs.filter(
+      (job) =>
+        job.jobTitle.toLowerCase().includes(query) ||
+        job.workType.toLowerCase().includes(query) ||
+        job.location.toLowerCase().includes(query)
+    );
+    setFilteredJobs(filteredJobs);
+  };
 
   return (
     <>
-      {/* <div>
+      <div>
         <div className="flex justify-center p-12">
           <input
             type="text"
@@ -56,15 +70,22 @@ const JobSearch = () => {
           />
         </div>
         <div className="jobs-wrapper p-4">
-          {filteredJobs.map((job) => (
-            <div key={job.id} className="mb-4">
-              <h3 className="font-semibold">{job.title}</h3>
-              <p className="text-sm">{job.company}</p>
-              <p className="text-sm">{job.techStack}</p>
-            </div>
-          ))}
+          {loading ? (
+            <p>Loading...</p>
+          ) : filteredJobs.length > 0 ? (
+            filteredJobs.map((job) => (
+              <div key={job.id} className="mb-4">
+                <h3 className="font-semibold">{job.jobTitle}</h3>
+                <p className="text-sm">{job.jobSummary}</p>
+                <p className="text-sm">{job.location}</p>
+                <p className="text-sm">{job.workType}</p>
+              </div>
+            ))
+          ) : (
+            <p>No jobs found.</p>
+          )}
         </div>
-      </div> */}
+      </div>
     </>
   );
 };
