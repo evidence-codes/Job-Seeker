@@ -11,6 +11,9 @@ class JobService {
     get() {
         return this.job.get();
     }
+    getJob(data) {
+        return this.job.getJob(data);
+    }
 }
 
 module.exports = new JobService();

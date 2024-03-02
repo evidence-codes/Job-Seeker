@@ -22,4 +22,15 @@ async function get(req, res) {
     }
 }
 
-module.exports = { create, get }
+async function getJob(req, res) {
+    try {
+        const job = await Job.getJob(req.params.id);
+        res
+            .status(200)
+            .json({ message: "Job fetched successfully", job })
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+}
+
+module.exports = { create, get, getJob }
