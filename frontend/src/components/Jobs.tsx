@@ -33,7 +33,7 @@ export default function Jobs() {
   };
 
   const handleClick = () => {
-    fetch("https://your-api-endpoint.com/jobs", {
+    fetch("https://job-seeker-9cy3.onrender.com/api/jobs/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

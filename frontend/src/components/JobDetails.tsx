@@ -23,7 +23,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://localhost:5000/api/jobs/get/${id}`;
+        const url = `https://job-seeker-9cy3.onrender.com/api/jobs/get/${id}`;
         const response = await fetch(url);
         const jobData = await response.json();
         setJob(jobData.job);
