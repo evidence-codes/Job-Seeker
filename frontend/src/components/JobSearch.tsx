@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 interface Job {
-  id: number;
+  _id: string;
   jobTitle: string;
   jobSummary: string;
   location: string;
@@ -11,7 +11,7 @@ interface Job {
 }
 
 const JobSearch = () => {
-  const [jobs, setJobs] = useState<Job[]>([]); // Specify the type as Job[]
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,6 @@ const JobSearch = () => {
   }, [searchQuery, navigate]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Changed to HTMLInputElement
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
     const filteredJobs = jobs.filter(
@@ -69,17 +68,23 @@ const JobSearch = () => {
             onChange={handleSearch}
           />
         </div>
-        <div className="jobs-wrapper p-4">
+        <div className="jobs-wrapper p-4 sm:px-16">
           {loading ? (
             <p>Loading...</p>
           ) : filteredJobs.length > 0 ? (
             filteredJobs.map((job) => (
-              <div key={job.id} className="mb-4">
-                <h3 className="font-semibold">{job.jobTitle}</h3>
-                <p className="text-sm">{job.jobSummary}</p>
-                <p className="text-sm">{job.location}</p>
-                <p className="text-sm">{job.workType}</p>
-              </div>
+              <Link
+                key={job._id}
+                to={`/jobs/${job._id}`}
+                className="text-black"
+              >
+                <div className="mb-4 p-4 border-4 rounded-xl cursor-pointer">
+                  <h3 className="font-semibold">{job.jobTitle}</h3>
+                  <p className="text-sm">{job.jobSummary}</p>
+                  <p className="text-sm">{job.location}</p>
+                  <p className="text-sm">{job.workType}</p>
+                </div>
+              </Link>
             ))
           ) : (
             <p>No jobs found.</p>
