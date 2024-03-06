@@ -16,6 +16,14 @@ export default function Jobs() {
     jobSummary: "",
   });
 
+  const [jobSummary, setJobSummary] = useState("");
+
+  const handleJobSummaryChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setJobSummary(e.target.value);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -29,6 +37,21 @@ export default function Jobs() {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+  };
+
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleProcedureContentChange = (content: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      jobDescription: content,
     }));
   };
 
@@ -57,6 +80,7 @@ export default function Jobs() {
           jobDescription: "",
           jobSummary: "",
         });
+        console.log(setFormData);
       })
       .catch((error) => {
         console.error("Error posting job ad:", error);
@@ -79,7 +103,7 @@ export default function Jobs() {
                   className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
                   placeholder=""
                   type="text"
-                  name=""
+                  name="jobTitle"
                   id=""
                   onChange={handleInputChange}
                 />
@@ -93,7 +117,7 @@ export default function Jobs() {
                   className="w-full placeholder-shown:border-gray-500 ... p-3 rounded-lg text-gray-700 font-medium placeholder:italic border outline-none"
                   placeholder=""
                   type="text"
-                  name=""
+                  name="location"
                   id=""
                 />
               </div>
@@ -101,19 +125,43 @@ export default function Jobs() {
                 <p className="font-semibold py-2 text-xl">Work Type</p>
                 <div className="flex flex-col">
                   <label className="">
-                    <input type="radio" name="full-time" value="Full-time" />
+                    <input
+                      type="radio"
+                      name="workType"
+                      value="Full-time"
+                      onChange={handleRadioChange}
+                      checked={formData.workType === "Full-time"}
+                    />
                     &nbsp; Full-time
                   </label>
                   <label className="">
-                    <input type="radio" name="part-time" value="Part-time" />
+                    <input
+                      type="radio"
+                      name="workType"
+                      value="Part-time"
+                      onChange={handleRadioChange}
+                      checked={formData.workType === "Part-time"}
+                    />
                     &nbsp; Part-time
                   </label>
                   <label className="">
-                    <input type="radio" name="contract" value="Contract" />
+                    <input
+                      type="radio"
+                      name="workType"
+                      value="Contract"
+                      onChange={handleRadioChange}
+                      checked={formData.workType === "Contract"}
+                    />
                     &nbsp; Contract
                   </label>
                   <label className="">
-                    <input type="radio" name="casual" value="Casual" />
+                    <input
+                      type="radio"
+                      name="workType"
+                      value="Casual"
+                      onChange={handleRadioChange}
+                      checked={formData.workType === "Casual"}
+                    />
                     &nbsp; Casual
                   </label>
                 </div>
@@ -124,35 +172,43 @@ export default function Jobs() {
               <div className="py-4">
                 <p className="font-semibold py-2 text-xl">Pay Type</p>
                 <div className="flex flex-col">
-                  <label className="">
+                  <label>
                     <input
                       type="radio"
-                      name="hourly rate"
+                      name="payType"
                       value="Hourly rate"
+                      onChange={handleRadioChange}
+                      checked={formData.payType === "Hourly rate"}
                     />
                     &nbsp; Hourly rate
                   </label>
-                  <label className="">
+                  <label>
                     <input
                       type="radio"
-                      name="monthly salary"
+                      name="payType"
                       value="Monthly salary"
+                      onChange={handleRadioChange}
+                      checked={formData.payType === "Monthly salary"}
                     />
                     &nbsp; Monthly salary
                   </label>
-                  <label className="">
+                  <label>
                     <input
                       type="radio"
-                      name="annual salary"
+                      name="payType"
                       value="Annual salary"
+                      onChange={handleRadioChange}
+                      checked={formData.payType === "Annual salary"}
                     />
                     &nbsp; Annual salary
                   </label>
-                  <label className="">
+                  <label>
                     <input
                       type="radio"
-                      name="annual plus commission"
+                      name="payType"
                       value="Annual plus commission"
+                      onChange={handleRadioChange}
+                      checked={formData.payType === "Annual plus commission"}
                     />
                     &nbsp; Annual plus commission
                   </label>
@@ -169,15 +225,15 @@ export default function Jobs() {
                     <p className="font-semibold">Currency</p>
                     <select
                       className="border px-4 border-gray-500 outline-none py-3 w-full rounded-lg bg-white"
-                      name="month"
+                      name="currency"
                       id=""
                       onChange={handleSelectChange}
                     >
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="usd">
+                        USD
                       </option>
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="eur">
+                        EUR
                       </option>
                     </select>
                   </div>
@@ -185,14 +241,15 @@ export default function Jobs() {
                     <p className="font-semibold">From</p>
                     <select
                       className="border px-4 border-gray-500 outline-none py-3 w-full rounded-lg bg-white"
-                      name="month"
+                      name="payFrom"
                       id=""
+                      onChange={handleSelectChange}
                     >
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="money">
+                        500
                       </option>
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="money">
+                        1000
                       </option>
                     </select>
                   </div>
@@ -200,14 +257,15 @@ export default function Jobs() {
                     <p className="font-semibold">To</p>
                     <select
                       className="border px-4 border-gray-500 outline-none py-3 w-full rounded-lg bg-white"
-                      name="month"
+                      name="payTo"
                       id=""
+                      onChange={handleSelectChange}
                     >
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="money">
+                        10000
                       </option>
-                      <option className="py-4" value="month">
-                        Month
+                      <option className="py-4" value="mon">
+                        20000
                       </option>
                     </select>
                   </div>
@@ -221,7 +279,7 @@ export default function Jobs() {
             <div className="py-4 px-4">
               <p className="font-semibold text-xl">Job description</p>
               <p className="py-1">Enter your job details.</p>
-              <TextEditor />
+              <TextEditor onChange={handleProcedureContentChange} />
             </div>
             <div className="sm:pt-14 pt-36 px-4">
               <h3 className="text-2xl font-semibold">
@@ -235,10 +293,12 @@ export default function Jobs() {
                 </p>
                 <textarea
                   className="w-full outline-none border border-black rounded-lg p-2"
-                  name=""
+                  name="jobSummary"
                   id=""
                   cols={30}
                   rows={10}
+                  value={jobSummary}
+                  onChange={handleJobSummaryChange}
                 ></textarea>
               </div>
             </div>
