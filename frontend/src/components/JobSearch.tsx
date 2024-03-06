@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Button from "./Button";
 
 interface Job {
   _id: string;
@@ -25,7 +26,7 @@ const JobSearch = () => {
         const jobsData = await response.json();
         console.log(jobsData);
         setJobs(jobsData.jobs);
-        setFilteredJobs(jobsData.jobs);
+        setFilteredJobs(jobsData.jobs.reverse());
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -56,9 +57,35 @@ const JobSearch = () => {
     setFilteredJobs(filteredJobs);
   };
 
+  const handleClick = () => {
+    navigate("/auth/");
+  };
+
+  const handleLogo = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div>
+        <div className="flex justify-between items-center px-12 pt-4">
+          <div>
+            <p
+              className="font-bold text-3xl sm:text-4xl cursor-pointer"
+              onClick={handleLogo}
+            >
+              technicaljobboard
+            </p>
+          </div>
+          <div className="flex justify-end">
+            <Button
+              style="sm:w-32 w-16 sm:text-base text-xs text-white bg-black hover:opacity-90 p-4 font-semibold rounded-lg outline-none"
+              type="button"
+              onClick={handleClick}
+              text="Signup"
+            />
+          </div>
+        </div>
         <div className="flex justify-center p-12">
           <input
             type="text"

@@ -1,7 +1,26 @@
 import "quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
+import { useEffect } from "react";
 
-const TextEditor = () => {
+interface TextEditorProps {
+  onChange: (content: string) => void;
+  defaultValue?: string;
+}
+
+const TextEditor: React.FC<TextEditorProps> = ({
+  onChange,
+  defaultValue = "",
+}) => {
+  // const [content, setContent] = useState<string>("");
+
+  // const handleProcedureContentChange = useCallback((content: string) => {
+  //   setContent(content);
+  // }, []);
+
+  useEffect(() => {
+    onChange(defaultValue);
+  }, [defaultValue, onChange]);
+
   const modules = {
     toolbar: [
       [{ size: ["small", false, "large", "huge"] }],
@@ -78,10 +97,6 @@ const TextEditor = () => {
     "size",
   ];
 
-  const handleProcedureContentChange = (content: unknown) => {
-    console.log("content---->", content);
-  };
-
   return (
     <div>
       <div>
@@ -90,7 +105,9 @@ const TextEditor = () => {
           modules={modules}
           formats={formats}
           placeholder="write your content ...."
-          onChange={handleProcedureContentChange}
+          // onChange={handleProcedureContentChange}
+          onChange={onChange}
+          defaultValue={defaultValue}
           style={{ height: "220px" }}
         ></ReactQuill>
       </div>

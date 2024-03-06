@@ -20,6 +20,49 @@ export default function Onboarding() {
 
   const years = generateYear();
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    jobTitle: "",
+    companyName: "",
+    startedMonth: "",
+    startedYear: "",
+    endedMonth: "",
+    endedYear: "",
+    stillInRole: false,
+    profileVisibility: "standard",
+  });
+
+  const handleClick = async () => {
+    try {
+      const response = await fetch(
+        "https://job-seeker-9cy3.onrender.com/api/jobs/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to submit form data");
+      }
+      // Handle success
+      console.log("Form data submitted successfully");
+    } catch (err) {
+      // Handle error
+      console.error("Error submitting form data:", err);
+    }
+  };
+
+  const handleInputChange = (key: string, value: string) => {
+    setFormData({
+      ...formData,
+      [key]: value,
+    });
+  };
+
   const [preferredClassification, setPreferredClassification] = useState("");
   const [subClassification, setSubClassification] = useState("");
 
@@ -47,10 +90,6 @@ export default function Onboarding() {
 
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleClick = () => {
-    setShowPopup(true);
-  };
-
   const handleClose = () => {
     setShowPopup(false);
   };
@@ -71,6 +110,7 @@ export default function Onboarding() {
             type="text"
             name=""
             id=""
+            onChange={(e) => handleInputChange("firstName", e.target.value)}
           />
         </div>
         <div className="px-8">
@@ -81,6 +121,7 @@ export default function Onboarding() {
             type="text"
             name=""
             id=""
+            onChange={(e) => handleInputChange("lastName", e.target.value)}
           />
         </div>
 
@@ -92,12 +133,12 @@ export default function Onboarding() {
             Recent Experiences
           </h2>
         </div>
-        <div className="px-8 flex py-4">
-          <input type="checkbox" name="" id="" />
+        {/* <div className="px-8 flex py-4">
+          <input type="checkbox" name="" id="" onChange={(e) => handleInputChange("lastName", e.target.checked)}/>
           <p className="text-gray-700 text-base font-semibold pl-2">
             I have experience
           </p>
-        </div>
+        </div> */}
         <div className="px-4">
           <div className="px-4">
             <p className="text-gray-700 font-semibold text-base">Job title</p>
@@ -185,12 +226,12 @@ export default function Onboarding() {
               </select>
             </div>
           </div>
-          <div className="px-4 flex py-4">
+          {/* <div className="px-4 flex py-4">
             <input type="checkbox" name="" id="" />
             <p className="text-gray-700 text-base font-semibold pl-2">
               Still in role
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="p-8">
           <hr />
